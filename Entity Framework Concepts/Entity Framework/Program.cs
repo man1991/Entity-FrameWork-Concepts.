@@ -21,31 +21,95 @@ namespace Entity_Framework
     {
         static void Main(string[] args)
         {
-            CustomerEntities objContext = new CustomerEntities();
+            CustomerEntities objEntities = new CustomerEntities();
 
-            //Reading Data
-            List<Country> objCountries = objContext.Countries.ToList<Country>();
-            foreach(Country o in objCountries)
-            {
-                Console.WriteLine(o.CountryName + " " + o.Population);
-            }
+            #region Create
+            //Country objCountry = new Country();//create object
+            //objCountry.CountryName = "Argentina";//add data
+            //objCountry.Population = 1500;//add data
+            //objEntities.Countries.Add(objCountry);//call Add() method adds data in memory and not to database - inmemory commit
+            //objEntities.SaveChanges();//call SaveChanges() method adds data into database - physical commit 
 
-            //Inserting Data
-            Country objCountry = new Country();//create object
-            objCountry.CountryName = "Sri Lanka";//add data
-            objCountry.Population = 2000;//add data
-            //objContext.Countries.Add(objCountry);//call Add() method adds data in memory and not to database - inmemory commit
-            //objContext.SaveChanges();//call SaveChanges() method adds data into database - physical commit
+            #region AddRange
+            //List<Country> lstCountries = new List<Country>();
+            //lstCountries.Add(new Country() {CountryName="Peru", Population= 400 });
+            //lstCountries.Add(new Country() { CountryName = "Venezuela", Population = 4000 });
+            //lstCountries.Add(new Country() { CountryName = "Costa Rica", Population = 40 });
 
-            //Updating Data
-            Country objUpdate = objCountries[0];
-            objUpdate.Population = 900;
-            objContext.SaveChanges();
+            //lstCountries.Add(new Country() { CountryName = "A", Population = 6001 });
+            //lstCountries.Add(new Country() { CountryName = "B", Population = 7001 });
+            //lstCountries.Add(new Country() { CountryName = "C", Population = 8001 });
 
-            //Deleting Data
-            Country objDelete = objCountries[0];
-            objContext.Countries.Remove(objDelete);
-            objContext.SaveChanges();
+            //old way of adding to database
+            //foreach (var item in lstCountries)
+            //{
+            //    objEntities.Countries.Add(item);
+            //}
+
+            //objEntities.Countries.AddRange(lstCountries);//AddRange() - to add list of elements
+            //objEntities.SaveChanges();//call SaveChanges() method adds data into database - physical commit 
+            #endregion
+            #endregion
+
+            #region Read
+            //List<Country> objCountries = objEntities.Countries.ToList<Country>();
+            //var objCountries = objEntities.Countries.ToList<Country>();
+
+            //foreach (Country o in objCountries)
+            //{
+            //    Console.WriteLine("Country Name: {0} Population: {1}", o.CountryName, o.Population);
+            //}
+
+            //var objPopulationGreaterThan1000 = objEntities.Countries.Where(x => x.Population > 1000).ToList();
+            //Console.WriteLine("\nPopulation Greater Than 1000:");
+            //foreach (Country o in objPopulationGreaterThan1000)
+            //{
+            //    Console.WriteLine("Country Name: {0} Population: {1}", o.CountryName, o.Population);
+            //}
+            #endregion
+
+            #region Update
+            //Country objUpdate = objCountries[0];
+            //objUpdate.Population = 900;
+            //objEntities.SaveChanges();
+
+            //OR
+            //FirstOrDefault() returns null value whereas First() does not return null values and it won't store same
+            //var changePopulation = objEntities.Countries.Where(x => x.CountryName == "NEP").FirstOrDefault();
+            //changePopulation.Population = 5000;
+            //objEntities.SaveChanges();
+
+            //will throw exception if data doesn't match and does not return null
+            //var changePopulation = objEntities.Countries.Where(x => x.CountryName == "NE").First();
+            //changePopulation.Population = 5000;
+            //objEntities.SaveChanges();
+
+            //won't throw exception if data doesn't match and returns null
+            //var changePopulation = objEntities.Countries.Where(x => x.CountryName == "NE").FirstOrDefault();
+            //if (changePopulation != null)//used if data doesn't data match
+            //{
+            //    changePopulation.Population = 5000;
+            //    objEntities.SaveChanges();
+            //}
+            #endregion
+
+            #region Delete
+            //Country objDelete = objCountries[0];
+            //objEntities.Countries.Remove(objDelete);
+            //objEntities.SaveChanges(); 
+
+            //OR
+            //var deleteRecord = objEntities.Countries.Where(x => x.Population == 1500).FirstOrDefault();
+            //objEntities.Countries.Remove(deleteRecord);
+
+            #region RemoveRange
+            ////RemoveRange() - to remove list of elements
+            //var deleteRecordsInRange = objEntities.Countries.Where(x => x.Population > 6000).ToList();
+            //objEntities.Countries.RemoveRange(deleteRecordsInRange);
+            //objEntities.SaveChanges(); 
+            #endregion
+            #endregion
+
             Console.ReadLine();
 
         }
