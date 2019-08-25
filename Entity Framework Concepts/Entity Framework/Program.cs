@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Core.Objects;
 
 namespace Entity_Framework
 {
@@ -101,9 +102,11 @@ namespace Entity_Framework
             {
                 objEntities.SaveChanges();
             }
-            catch
+            catch(Exception ex)
             {
                 //handle concurrency
+                //((IObjectContextAdapter)context).ObjectContext.Refresh(RefreshMode.ClientWins, changeCountryName);
+                
             }
             #endregion
 
