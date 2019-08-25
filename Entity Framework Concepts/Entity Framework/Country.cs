@@ -16,5 +16,6 @@ namespace Entity_Framework
     {
         public string CountryName { get; set; }
         public Nullable<int> Population { get; set; }
+        public byte[] LastUpdated { get; set; }
     }
 }

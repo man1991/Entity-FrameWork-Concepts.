@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity.Infrastructure;
 
 namespace Entity_Framework
 {
@@ -21,8 +22,9 @@ namespace Entity_Framework
     {
         static void Main(string[] args)
         {
-            CustomerEntities objEntities = new CustomerEntities();
+            CustomerEntities objEntities = new CustomerEntities();//for database first approach
 
+            #region Using EF From Database First Approach
             #region Create
             //Country objCountry = new Country();//create object
             //objCountry.CountryName = "Argentina";//add data
@@ -91,6 +93,18 @@ namespace Entity_Framework
             //    changePopulation.Population = 5000;
             //    objEntities.SaveChanges();
             //}
+
+            //FirstOrDefault() returns null value whereas First() does not return null values and it won't store same
+            var changeCountryName = objEntities.Countries.Where(x => x.Population == 101).FirstOrDefault();
+            changeCountryName.CountryName = "Kenya";
+            try
+            {
+                objEntities.SaveChanges();
+            }
+            catch
+            {
+                //handle concurrency
+            }
             #endregion
 
             #region Delete
@@ -107,6 +121,19 @@ namespace Entity_Framework
             //var deleteRecordsInRange = objEntities.Countries.Where(x => x.Population > 6000).ToList();
             //objEntities.Countries.RemoveRange(deleteRecordsInRange);
             //objEntities.SaveChanges(); 
+            #endregion
+            #endregion
+            #endregion
+
+            #region Using Code First Approch
+            //CustomerCodeFirst objEntities = new CustomerCodeFirst();//for code first approach
+            #region Read
+            //var objCountries = objEntities.Countries.ToList<Country>();
+
+            //foreach (Country o in objCountries)
+            //{
+            //    Console.WriteLine("Country Name: {0} Population: {1}", o.CountryName, o.Population);
+            //}
             #endregion
             #endregion
 

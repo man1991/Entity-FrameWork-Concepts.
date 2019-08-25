@@ -67,8 +67,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Country.edmx</DependentUpon>
     </Compile>
+    <Compile Include="CustomerCodeFirst.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tblCountry.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
